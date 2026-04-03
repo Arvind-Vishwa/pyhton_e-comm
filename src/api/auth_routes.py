@@ -6,11 +6,7 @@ router = APIRouter()
 
 @router.post("/signup")
 def signup(user: UserSignup):
-    try:
-        user_id = create_user(user)
-        return {"message": "User created", "user_id": user_id}
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    return create_user(user)
 
 
 @router.post("/login")
