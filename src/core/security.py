@@ -3,6 +3,7 @@ from jose import jwt
 import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+import hashlib
 
 load_dotenv()
 
@@ -11,15 +12,14 @@ ALGORITHM = "HS256"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Hash password
 def hash_password(password: str):
-    return pwd_context.hash(password)
+    hashed = hashlib.sha256(password.encode('utf-8')).digest()  # ⚠️ use digest()
+    return pwd_context.hash(hashed)
 
-# Verify password
 def verify_password(plain, hashed):
-    return pwd_context.verify(plain, hashed)
+    plain_hashed = hashlib.sha256(plain.encode('utf-8')).digest()
+    return pwd_context.verify(plain_hashed, hashed)
 
-# Create JWT token
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(hours=24)
