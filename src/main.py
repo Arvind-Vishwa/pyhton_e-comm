@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from src.api import auth_routes
 from src.core.dependencies import get_current_user
 from fastapi import Depends
+from src.api import product_routes
 
 app = FastAPI()
 
@@ -18,3 +19,7 @@ def profile(user = Depends(get_current_user)):
         "message": "Protected route working",
         "user": str(user["_id"])
     }
+    
+
+
+app.include_router(product_routes.router, prefix="/products", tags=["Products"])
