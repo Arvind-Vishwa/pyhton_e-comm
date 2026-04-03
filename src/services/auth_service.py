@@ -4,6 +4,8 @@ from src.models.user_model import user_helper
 
 # Signup
 def create_user(user_data):
+    if len(user_data.password.encode("utf-8")) > 72:
+        raise ValueError("Password too long")
     existing_user = db.users.find_one({"email": user_data.email})
     
     if existing_user:

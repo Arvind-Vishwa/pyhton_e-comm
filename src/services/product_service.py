@@ -3,8 +3,10 @@ from bson import ObjectId
 
 # Create product
 def create_product(data):
-    product = data.dict()
-    result = db.products.insert_one(product)
+    # Convert Pydantic model → JSON-safe dict
+    product_data = data.model_dump(mode="json")
+
+    result = db.products.insert_one(product_data)
     return str(result.inserted_id)
 
 
