@@ -133,7 +133,7 @@
 ####    
 1. Clone repo
 ##### 
-    git clone https://github.com/Arvind-Vishwa/pyhton_e-comm.git
+    git clone https://github.com/Arvind-Vishwa/python_e-comm.git
     
 
 1. Create virtual environmen
